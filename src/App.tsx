@@ -9,6 +9,7 @@ import { FAQSection } from './components/FAQSection';
 import About from './pages/About';
 import { RegistrationSuccess } from './components/RegistrationSuccess';
 import Tracks from './pages/Tracks';
+import { eventConfig } from './config/event';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -33,12 +34,12 @@ function Navigation() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2 text-xl font-bold text-white neon-text">
-              <img src="https://lh3.googleusercontent.com/a/ACg8ocJAuTcKKDTgQNOGlPBiaC_KNw1SihXTcfziX_dHC8FUnqqaXR4=s576-c-no" alt="XHorizon Logo" className="h-8 w-auto" />
-              XHorizon
+              <img src={eventConfig.organization.primaryLogo} alt={`${eventConfig.event.name} Logo`} className="h-8 w-auto" />
+              {eventConfig.event.name}
             </Link>
             <div className="flex items-center gap-2">
-              <span className="text-xl font-bold text-white">Hack with India</span>
-              <img src="https://media.licdn.com/dms/image/v2/D560BAQGz5OEz6lXfOQ/company-logo_200_200/company-logo_200_200/0/1711310376436/hackwithindia_logo?e=1748476800&v=beta&t=ri7sl14XNDvACzKLQxnE6Qgt-EgNvDIqzeOZJ31xe1o" alt="Hack with India Logo" className="h-8 w-8 rounded-full object-cover" />
+              <span className="text-xl font-bold text-white">{eventConfig.organization.partnerName}</span>
+              <img src={eventConfig.organization.partnerLogo} alt={`${eventConfig.organization.partnerName} Logo`} className="h-8 w-8 rounded-full object-cover" />
             </div>
           </div>
         </div>
@@ -60,43 +61,7 @@ function CollaboratorsSection() {
         </motion.h2>
 
         <div className="grid md:grid-cols-3 gap-12 items-center">
-          {[
-            {
-              name: "The Coding Club",
-              logo: "https://media.licdn.com/dms/image/v2/D5603AQEmomPDnJLY3g/profile-displayphoto-shrink_800_800/B56ZWTomH9GQAc-/0/1741938652015?e=1748476800&v=beta&t=S_UPFtevvz7OeITMZoP5RvH2aVfC9r_LAXAoQY2l5G4",
-              description: "Empowering students through technology and innovation",
-              isCircle: true,
-              size: "h-32 w-32"
-            },
-            {
-              name: " Department of AIML",
-              logo: "https://media.mbu.asia/wp-content/uploads/2024/06/logo-with-tagline-FINAL-1.png",
-              description: "Mohan Babu University",
-              isCircle: false,
-              size: "h-32"
-            },
-            {
-              name: "HackwithIndia",
-              logo: "https://media.licdn.com/dms/image/v2/D560BAQGz5OEz6lXfOQ/company-logo_200_200/company-logo_200_200/0/1711310376436/hackwithindia_logo?e=1748476800&v=beta&t=ri7sl14XNDvACzKLQxnE6Qgt-EgNvDIqzeOZJ31xe1o",
-              description: "India's Premier Student Hackathon Platform",
-              isCircle: true,
-              size: "h-32 w-32"
-            },
-            {
-              name: "IEEE CIS",
-              logo: "https://cis.ieee.org/images/files/Branding/logos/white/IEEE_CIS_logo_White_RGB_300ppi.png",
-              description: "Empowering students through computational intelligence.",
-              isCircle: false,
-              size: "h-32"
-            },
-            {
-              name: "AWS Cloud Club",
-              logo: "https://media.konfhub.com/past_events/2024/August/28/1724879519122-86e4a31a-7dd3-4ec7-94a6-5ba169b25237.png",
-              description: "Inspiring students to explore, learn, and lead in the world of cloud computing.",
-              isCircle: true,
-              size: "h-32 w-32"
-            }
-          ].map((partner, index) => (
+          {eventConfig.collaborators.map((partner, index) => (
             <motion.div
               key={partner.name}
               initial={{ opacity: 0, y: 20 }}
@@ -188,9 +153,9 @@ function HomeContent() {
             className="relative"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 blur-3xl"></div>
-            <span className="relative block text-lg font-bold text-gray-400 mb-4">Department of AIML presents</span>
+            <span className="relative block text-lg font-bold text-gray-400 mb-4">{eventConfig.organization.host} presents</span>
             <h1 className="relative text-6xl md:text-8xl lg:text-9xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 mb-6">
-              XHORIZON
+              {eventConfig.event.name.toUpperCase()}
             </h1>
           </motion.div>
 
@@ -200,7 +165,7 @@ function HomeContent() {
             transition={{ delay: 0.4 }}
             className="text-3xl md:text-5xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-purple-200"
           >
-            Where Innovation Meets Infinity
+            {eventConfig.event.tagline}
           </motion.h2>
 
           <div className="mb-12">
@@ -213,7 +178,7 @@ function HomeContent() {
               className="glass-card px-6 py-4 flex items-center gap-3 border border-white/10 hover:border-blue-500/30 transition-all duration-300"
             >
               <Calendar className="w-6 h-6 text-blue-400" />
-              <span className="text-lg">April 12-13, 2025</span>
+              <span className="text-lg">{eventConfig.event.dates.start} - {eventConfig.event.dates.end}</span>
             </motion.div>
            
             <motion.div 
@@ -221,7 +186,7 @@ function HomeContent() {
               className="glass-card px-6 py-4 flex items-center gap-3 border border-white/10 hover:border-purple-500/30 transition-all duration-300"
             >
               <MapPin className="w-6 h-6 text-purple-400" />
-              <span className="text-lg">Mohan Babu University, Tirupati</span>
+              <span className="text-lg">{eventConfig.event.location.venue}</span>
             </motion.div>
           </div>
 
@@ -259,15 +224,15 @@ function HomeContent() {
             transition={{ delay: 0.6 }}
             className="mt-6 flex justify-center gap-8"
           >
-            <a href="https://www.instagram.com/thecodingclubx/" target="_blank" rel="noopener noreferrer"
+            <a href={eventConfig.contact.instagram} target="_blank" rel="noopener noreferrer"
                className="text-gray-400 hover:text-white transition-colors transform hover:scale-110">
               <Instagram className="w-7 h-7" />
             </a>
-            <a href="https://www.linkedin.com/in/the-coding-club-922327356/" target="_blank" rel="noopener noreferrer"
+            <a href={eventConfig.contact.linkedin} target="_blank" rel="noopener noreferrer"
                className="text-gray-400 hover:text-white transition-colors transform hover:scale-110">
               <Linkedin className="w-7 h-7" />
             </a>
-            <a href="https://chat.whatsapp.com/KqNmfIapdWE7ntw7D1DRAx" target="_blank" rel="noopener noreferrer"
+            <a href={eventConfig.contact.whatsapp} target="_blank" rel="noopener noreferrer"
                className="text-gray-400 hover:text-white transition-colors transform hover:scale-110">
               <MessageSquare className="w-7 h-7" />
             </a>
@@ -297,29 +262,29 @@ function HomeContent() {
               {
                 icon: <Calendar className="w-8 h-8" />,
                 title: "Registration Opens",
-                date: "March 25, 2025",
-                time: "10:00 AM",
+                date: eventConfig.event.dates.registrationOpen,
+                time: eventConfig.event.times.registrationOpen,
                 position: "left"
               },
               {
                 icon: <Users2 className="w-8 h-8" />,
                 title: "Team Formation Deadline",
-                date: "April 5, 2025",
-                time: "11:59 PM",
+                date: eventConfig.event.dates.teamFormationDeadline,
+                time: eventConfig.event.times.teamFormationDeadline,
                 position: "right"
               },
               {
                 icon: <Rocket className="w-8 h-8" />,
                 title: "Hackathon Kickoff",
-                date: "April 12, 2025",
-                time: "10:30 AM",
+                date: eventConfig.event.dates.start,
+                time: eventConfig.event.times.kickoff,
                 position: "left"
               },
               {
                 icon: <Trophy className="w-8 h-8" />,
                 title: "Winners Announcement",
-                date: "April 13, 2025",
-                time: "10:30 AM",
+                date: eventConfig.event.dates.end,
+                time: eventConfig.event.times.winnersAnnouncement,
                 position: "right"
               }
             ].map((event, index) => (
@@ -391,35 +356,7 @@ function HomeContent() {
 
             {/* Prize cards */}
             <div className="grid lg:grid-cols-3 gap-8 relative z-10">
-              {[
-                {
-                  place: "1st",
-                  icon: <Trophy className="w-12 h-12" />,
-                  prize: "₹15,000",
-                  color: "from-yellow-400/20 to-amber-600/20",
-                  iconColor: "text-yellow-400",
-                  delay: 0.2,
-                  extras: ["Paid Internship Opportunity", "Industry Mentorship"]
-                },
-                {
-                  place: "2nd (A)",
-                  icon: <Trophy className="w-12 h-12" />,
-                  prize: "₹10,000",
-                  color: "from-gray-400/20 to-gray-600/20",
-                  iconColor: "text-gray-400",
-                  delay: 0.3,
-                  extras: ["Paid Internship Opportunity", "Industry Mentorship"]
-                },
-                {
-                  place: "2nd (B)",
-                  icon: <Trophy className="w-12 h-12" />,
-                  prize: "₹5,000",
-                  color: "from-amber-700/20 to-amber-900/20",
-                  iconColor: "text-amber-700",
-                  delay: 0.4,
-                  extras: ["Paid Internship Opportunity", "Industry Mentorship"]
-                }
-              ].map((prize, index) => (
+              {eventConfig.prizes.main.map((prize, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 50 }}
@@ -450,7 +387,7 @@ function HomeContent() {
                     {/* Prize details */}
                     <div className="text-center">
                       <div className="text-2xl font-bold mb-2">{prize.place} Place</div>
-                      <div className="text-4xl font-bold text-blue-400 mb-4">{prize.prize}</div>
+                      <div className="text-4xl font-bold text-blue-400 mb-4">{prize.amount}</div>
                       <div className="space-y-2">
                         {prize.extras.map((extra, i) => (
                           <motion.div
@@ -579,9 +516,9 @@ function HomeContent() {
                 >
                   <Briefcase className="w-8 h-8 text-blue-400" />
                 </motion.div>
-                <h3 className="text-2xl font-bold mb-4">Top 10 Teams Get</h3>
+                <h3 className="text-2xl font-bold mb-4">{eventConfig.prizes.internships.description}</h3>
                 <div className="grid md:grid-cols-3 gap-6">
-                  {['Bubble AI', 'WalletX', 'Naukri'].map((company, index) => (
+                  {eventConfig.prizes.internships.companies.map((company, index) => (
                     <motion.div
                       key={company}
                       initial={{ opacity: 0, y: 20 }}
@@ -630,21 +567,21 @@ function HomeContent() {
             <div className="mt-8">
               <p className="text-gray-400">Contact us:</p>
               <div className="flex justify-center gap-6 mt-4">
-                <a href="https://www.instagram.com/thecodingclubx/" target="_blank" rel="noopener noreferrer"
+                <a href={eventConfig.contact.instagram} target="_blank" rel="noopener noreferrer"
                    className="text-gray-400 hover:text-white transition-colors">
                   <Instagram className="w-6 h-6" />
                 </a>
-                <a href="https://www.linkedin.com/in/the-coding-club-922327356/" target="_blank" rel="noopener noreferrer"
+                <a href={eventConfig.contact.linkedin} target="_blank" rel="noopener noreferrer"
                    className="text-gray-400 hover:text-white transition-colors">
                   <Linkedin className="w-6 h-6" />
                 </a>
-                <a href="https://chat.whatsapp.com/KqNmfIapdWE7ntw7D1DRAx" target="_blank" rel="noopener noreferrer"
+                <a href={eventConfig.contact.whatsapp} target="_blank" rel="noopener noreferrer"
                    className="text-gray-400 hover:text-white transition-colors">
                   <MessageSquare className="w-6 h-6" />
                 </a>
               </div>
             </div>
-            <p className="text-gray-400 mt-8">© 2025 XHorizon. All rights reserved.</p>
+            <p className="text-gray-400 mt-8">© 2025 {eventConfig.event.name}. All rights reserved.</p>
           </motion.div>
         </div>
       </footer>
